@@ -26,31 +26,36 @@
 
 // 质数表
 // 负载因子
-void TestHashTable()
+//void TestHashTable()
+//{
+//	int i = 0;
+//	HashData* ret;
+//	//char* strs[] = {"insert","insert","insert","insert","insert","sort", "insert", "sort", "find"};
+//	char* strs[] = {"abcd", "bcad", "cbad","cbad", "aad", "abc", "acb"};
+//	HashTable ht;
+//	HTInit(&ht, 10);
+//	for (; i < sizeof(strs)/sizeof(char*); ++i)
+//	{
+//		ret = HTFind(&ht, strs[i]);
+//		if (ret)
+//		{
+//			ret->_value++;
+//		}
+//		else
+//		{
+//			HTInsert(&ht, strs[i], 1);
+//		}
+//	}
+//
+//	HTPrint(&ht);
+//}
+void TestHashBucket()
 {
-	int i = 0;
-	HashData* ret;
-	//char* strs[] = {"insert","insert","insert","insert","insert","sort", "insert", "sort", "find"};
-	char* strs[] = {"abcd", "bcad", "cbad","cbad", "aad", "abc", "acb"};
-	HashTable ht;
-	HTInit(&ht, 10);
-	for (; i < sizeof(strs)/sizeof(char*); ++i)
-	{
-		ret = HTFind(&ht, strs[i]);
-		if (ret)
-		{
-			ret->_value++;
-		}
-		else
-		{
-			HTInsert(&ht, strs[i], 1);
-		}
-	}
-
-	HTPrint(&ht);
+	int* arr[] = {1,2,3};
 }
 int main()
 {
-	TestHashTable();
+	//TestHashTable();
+	TestHashBucket();
 	return 0;
 }

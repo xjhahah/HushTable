@@ -81,7 +81,7 @@ int HTInsert(HashTable* ht, HTKeyType key, HTValueType value)
 				index = 0;
 			}
 			*/
-			//发生哈希冲突，采用二次探测
+			//发生哈希冲突，采用二次探测，如果数据很多的话用 多阶哈希
 			++i;
 			index = start + i * i;
 			index %= ht->_len;
