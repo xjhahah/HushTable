@@ -30,8 +30,8 @@ void TestHashTable()
 {
 	int i = 0;
 	HashData* ret;
-	char* strs[] = {"insert","insert","insert","insert","insert","sort", "insert", "sort", "find"};
-	//char* strs[] = {"abcd", "bcad", "cbad","cbad", "aad", "abc", "acb"};
+	//char* strs[] = {"insert","insert","insert","insert","insert","sort", "insert", "sort", "find"};
+	char* strs[] = {"abcd", "bcad", "cbad","cbad", "aad", "abc", "acb"};
 	HashTable ht;
 	HTInit(&ht, 10);
 	for (; i < sizeof(strs)/sizeof(char*); ++i)

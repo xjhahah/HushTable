@@ -25,6 +25,7 @@ void HTDestroy(HashTable* ht)
 	ht->_size = ht->_len = 0;
 }
 
+//定制哈希函数
 size_t HTHashFunc(HTKeyType key, size_t len)
 {
 	//return key % len;
@@ -72,9 +73,19 @@ int HTInsert(HashTable* ht, HTKeyType key, HTValueType value)
 		}
 		else
 		{
+			//线性探测
+			/*	
+			++index;
+			if (index == ht->_len)
+			{
+				index = 0;
+			}
+			*/
+			//发生哈希冲突，采用二次探测
 			++i;
 			index = start + i * i;
 			index %= ht->_len;
+
 		}
 	}
 
