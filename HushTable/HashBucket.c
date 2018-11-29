@@ -97,3 +97,21 @@ void HBDestroy(HashBucket*hb)
 	hb->_tables = NULL;
 	hb->_size = hb->len = 0;
 }
+
+void PrintHashBucket(HashBucket* hb)
+{
+	assert(hb);
+	for (size_t i = 0; i < hb->len; ++i)
+	{
+		HashNode* cur = hb->_tables[i];
+		printf("table[%d]-->", i);
+
+		while (cur)
+		{
+			printf("[%d:%d]-->", cur->_key, cur->_value);
+			cur = cur->_next;
+		}
+		printf("NULL\n");
+	}
+	printf("\n");
+}

@@ -1,4 +1,6 @@
-#include "Hush.h"
+//#include "Hush.h"
+#include "HashBucket.h"
+
 
 //void TestHashTable()
 //{
@@ -51,7 +53,16 @@
 //}
 void TestHashBucket()
 {
-	int* arr[] = {1,2,3};
+	HashBucket hb;
+	HBInit(&hb, 10);
+
+	HBInsert(&hb, 10, 0);
+	HBInsert(&hb, 12, 0);
+	HBInsert(&hb, 14, 0);
+	HBInsert(&hb, 14, 0);
+	HBInsert(&hb, 14, 0);
+
+	PrintHashBucket(&hb);
 }
 int main()
 {

@@ -28,3 +28,5 @@ HashNode* HBFind(HashBucket* hb, HTBKeyType key);
 int HBSize(HashBucket* hb);
 int HBEmpty(HashBucket* hb);
 void HBDestroy(HashBucket*hb);
+
+void PrintHashBucket(HashBucket* hb);
