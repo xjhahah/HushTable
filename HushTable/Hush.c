@@ -5,7 +5,7 @@ void HTInit(HashTable* ht, size_t len)
 	assert(len > 0);
 	assert(ht);
 
-	//len = GetNextPrime(len);
+	len = GetNextPrime(len);
 	ht->_tables = (HashData*)malloc(sizeof(HashData)*len);
 	memset(ht->_tables, 0, sizeof(HashData)*len);
 	ht->_size = 0;
@@ -28,7 +28,7 @@ void HTDestroy(HashTable* ht)
 size_t HTHashFunc(HTKeyType key, size_t len)
 {
 	//return key % len;
-	return StrHash(key) % len;
+	return BKDRHash(key) % len;
 }
 
 void CheckCapacity(HashTable* ht)

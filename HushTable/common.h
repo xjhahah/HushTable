@@ -29,18 +29,14 @@ static size_t GetNextPrime(size_t value)
 	return _PrimeList[27];
 }
 
-static size_t StrHash(const char* str)
+static size_t BKDRHash(const char* str)
 {
 	size_t hash = 0;
 	size_t seed = 131;
 	while (*str)
 	{
-		//hash += *str;
-		hash = hash * seed + *str;
-		++str;
+		hash = hash * seed + (*str++);
 	}
 
-	printf("%u\n", hash);
-
-	return hash;
+	return (hash & 0x7FFFFFFF);
 }
