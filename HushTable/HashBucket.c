@@ -90,6 +90,7 @@ int HBRemove(HashBucket* hb, HTBKeyType key)
 	assert(hb);
 	index = HBFunc(key, hb->len);
 
+	cur = hb->_tables[index];
 	while (cur)
 	{
 		if (cur->_key == key)
