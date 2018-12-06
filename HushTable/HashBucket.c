@@ -24,12 +24,39 @@ HashNode* BuyHashNode(HTBKeyType key,HTBValueType val)
 	pNewNode->_next = NULL;
 	return pNewNode;
 }
-
+void HBCheckCapacity(HashBucket* hb)
+{
+	assert(hb);
+	HashBucket newHT;
+	if (hb->_size == hb->len)
+	{
+		newHT.len = GetNextPrime(hb->len);
+		HBInit(&newHT, newHT.len);
+	}
+	for (size_t i = 0; i < hb->len; ++i)
+	{
+		HashNode* pCur = hb->_tables[i];
+		while(pCur)
+		{
+			HashNode* next = pCur->_next;
+			size_t index = HBFunc(pCur->_key, newHT.len);
+			pCur->_next = newHT._tables[index];
+			newHT._tables[index] = pCur;
+			pCur = next;
+		}
+		hb->_tables[i] = NULL;
+	}
+	HBDestroy(hb);
+	hb->_tables = newHT._tables;
+	hb->_size = newHT._size;
+	hb->len = newHT.len;
+}
 int HBInsert(HashBucket* hb, HTBKeyType key, HTBValueType val)
 {
 	HashNode* cur,*newNode;
 	size_t index;
 
+	HBCheckCapacity(hb);
 	assert(hb);
 
 	//1.key是否已经存在
@@ -55,15 +82,60 @@ int HBInsert(HashBucket* hb, HTBKeyType key, HTBValueType val)
 	return 0;
 }
 
-//int HBRemove(HashBucket* hb, HTBKeyType key)
-//{
-//
-//}
-//
-//HashNode* HBFind(HashBucket* hb, HTBKeyType key)
-//{
-//
-//}
+int HBRemove(HashBucket* hb, HTBKeyType key)
+{
+	size_t index;
+	HashNode* cur=NULL;
+	HashNode* prev=NULL;
+	assert(hb);
+	index = HBFunc(key, hb->len);
+
+	while (cur)
+	{
+		if (cur->_key == key)
+		{
+			if (prev == NULL)
+			{
+				hb->_tables[index] = cur->_next;
+			}
+			else
+			{
+				prev->_next = cur->_next;
+			}
+			free(cur);
+			--hb->_size;
+			return 0;
+		}
+		else
+		{
+			prev = cur;
+			cur = cur->_next;
+		}
+	}
+	return -1;
+}
+
+HashNode* HBFind(HashBucket* hb, HTBKeyType key)
+{
+	HashNode* cur;
+	assert(hb);
+	//先算位置
+	size_t index = HBFunc(key, hb->len);
+	cur = hb->_tables[index];
+	while (cur)
+	{
+		if (cur->_key == key)
+		{
+			printf("找到了！！！\n");
+			return cur;
+		}
+		else
+		{
+			cur = cur->_next;
+		}
+	}
+	return NULL;
+}
 
 int HBSize(HashBucket* hb)
 {
